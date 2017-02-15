@@ -23,6 +23,8 @@ class DocoptConan(ConanFile):
 
     def package(self):
         self.copy("docopt.h", dst="include", src="docopt.cpp")
+        self.copy("docopt_value.h", dst="include", src="docopt.cpp")
+        self.copy("docopt_util.h", dst="include", src="docopt.cpp")
         self.copy("*.dll", dst="bin", src="docopt.cpp")
         self.copy("*.so*", dst="lib", src="docopt.cpp")
         self.copy("*.a*", dst="bin", src="docopt.cpp")
