@@ -28,6 +28,7 @@ class DocoptConan(ConanFile):
         self.copy("*.dll", dst="bin", src="docopt.cpp")
         self.copy("*.so*", dst="lib", src="docopt.cpp")
         self.copy("*.a*", dst="bin", src="docopt.cpp")
+        self.copy("*.lib", dst="lib", src="docopt.cpp")
 
     def package_info(self):
         self.cpp_info.libs = ["docopt"]
