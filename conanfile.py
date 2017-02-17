@@ -22,13 +22,13 @@ class DocoptConan(ConanFile):
         self.run('cd docopt.cpp && cmake --build . {}'.format(cmake.build_config))
 
     def package(self):
-        self.copy("docopt.h", dst="include", src="docopt.cpp")
-        self.copy("docopt_value.h", dst="include", src="docopt.cpp")
-        self.copy("docopt_util.h", dst="include", src="docopt.cpp")
-        self.copy("*.dll", dst="bin", src="docopt.cpp")
-        self.copy("*.so*", dst="lib", src="docopt.cpp")
-        self.copy("*.a*", dst="bin", src="docopt.cpp")
-        self.copy("*.lib", dst="lib", src="docopt.cpp")
+        self.copy("docopt.h", dst="include", src="docopt.cpp", keep_path=False)
+        self.copy("docopt_value.h", dst="include", src="docopt.cpp", keep_path=False)
+        self.copy("docopt_util.h", dst="include", src="docopt.cpp", keep_path=False)
+        self.copy("*.dll", dst="bin", src="docopt.cpp", keep_path=False)
+        self.copy("*.so*", dst="lib", src="docopt.cpp", keep_path=False)
+        self.copy("*.a*", dst="bin", src="docopt.cpp", keep_path=False)
+        self.copy("*.lib", dst="lib", src="docopt.cpp", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["docopt"]
