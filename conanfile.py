@@ -25,7 +25,7 @@ class DocoptConan(ConanFile):
         self.copy("docopt_value.h", dst="include", src="docopt.cpp", keep_path=False)
         self.copy("docopt_util.h", dst="include", src="docopt.cpp", keep_path=False)
         if self.options.static:
-            self.copy("*.a*", dst="lin", src="docopt.cpp", keep_path=False)
+            self.copy("*.a*", dst="lib", src="docopt.cpp", keep_path=False)
             self.copy("*.lib", dst="lib", src="docopt.cpp", keep_path=False)
         else:
             self.copy("*.dll", dst="bin", src="docopt.cpp", keep_path=False)
