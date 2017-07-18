@@ -12,6 +12,8 @@ class DocoptConan(ConanFile):
     description = "Command-line parser"
     url = "https://github.com/docopt/docopt.cpp"
     license = "MIT"
+    options = {"static": [True, False]}
+    default_options = "static=True"
 
     def source(self):
         self.run( "git clone {}".format(self.url))
@@ -25,10 +27,13 @@ class DocoptConan(ConanFile):
         self.copy("docopt.h", dst="include", src="docopt.cpp", keep_path=False)
         self.copy("docopt_value.h", dst="include", src="docopt.cpp", keep_path=False)
         self.copy("docopt_util.h", dst="include", src="docopt.cpp", keep_path=False)
-        self.copy("*.dll", dst="bin", src="docopt.cpp", keep_path=False)
-        self.copy("*.so*", dst="lib", src="docopt.cpp", keep_path=False)
-        self.copy("*.a*", dst="bin", src="docopt.cpp", keep_path=False)
-        self.copy("*.lib", dst="lib", src="docopt.cpp", keep_path=False)
+        if self.options.static:
+            self.copy("*.a*", dst="lin", src="docopt.cpp", keep_path=False)
+            self.copy("*.lib", dst="lib", src="docopt.cpp", keep_path=False)
+        else:
+            self.copy("*.dll", dst="bin", src="docopt.cpp", keep_path=False)
+            self.copy("*.so*", dst="lib", src="docopt.cpp", keep_path=False)
+            self.copy("*.lib", dst="lib", src="docopt.cpp", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["docopt"]
