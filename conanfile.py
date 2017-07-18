@@ -1,7 +1,4 @@
 from conans import ConanFile, CMake
-from conans.tools import download, unzip
-import os
-import shutil
 
 class DocoptConan(ConanFile):
     name = "docopt.cpp"
@@ -16,7 +13,7 @@ class DocoptConan(ConanFile):
     default_options = "static=True"
 
     def source(self):
-        self.run( "git clone {}".format(self.url))
+        self.run('git clone {}'.format(self.url))
 
     def build(self):
         cmake = CMake(self.settings)
