@@ -1,10 +1,10 @@
-from conans import ConanFile, CMake
+from conans import ConanFile, CMake, tools
 
 class DocoptConan(ConanFile):
     name = "docopt.cpp"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
-    version = "master"
+    version = "0.6.2"
     exports = "*"
     description = "Command-line parser"
     url = "https://github.com/docopt/docopt.cpp"
@@ -13,7 +13,14 @@ class DocoptConan(ConanFile):
     default_options = "static=True"
 
     def source(self):
-        self.run('git clone {}'.format(self.url))
+        self.run('git clone --branch v{} {}'.format(self.version, self.url))
+        tools.replace_in_file("docopt.cpp/CMakeLists.txt", "include(GNUInstallDirs)", '''include(GNUInstallDirs)
+if(CONAN_LIBCXX STREQUAL "libstdc++11")
+    add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
+elseif(CONAN_LIBCXX STREQUAL "libstdc++")
+    add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+endif()
+''')
 
     def build(self):
         cmake = CMake(self.settings)
