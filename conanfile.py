@@ -15,10 +15,12 @@ class DocoptConan(ConanFile):
     def source(self):
         self.run('git clone --branch v{} {}'.format(self.version, self.url))
         tools.replace_in_file("docopt.cpp/CMakeLists.txt", "include(GNUInstallDirs)", '''include(GNUInstallDirs)
-if(CONAN_LIBCXX STREQUAL "libstdc++11")
-    add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
-elseif(CONAN_LIBCXX STREQUAL "libstdc++")
-    add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+if (UNIX)
+    if(CONAN_LIBCXX STREQUAL "libstdc++11")
+        add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
+    elseif(CONAN_LIBCXX STREQUAL "libstdc++")
+        add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+    endif()
 endif()
 ''')
 
